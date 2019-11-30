@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, ListView, CreateView
-from django.core.files.storage import FileSystemStorage
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, ListView, TemplateView
 
 from .forms import BookForm
 from .models import Book
@@ -11,11 +14,12 @@ class Home(TemplateView):
     template_name = 'home.html'
 
 
+@login_required
 def upload(request):
     context = {}
     if request.method == 'POST':
         uploaded_file = request.FILES['document']
-        fs = FileSystemStorage()
+        fs = default_storage
         name = fs.save(uploaded_file.name, uploaded_file)
         context['url'] = fs.url(name)
     return render(request, 'upload.html', context)
@@ -28,6 +32,7 @@ def book_list(request):
     })
 
 
+@login_required
 def upload_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST, request.FILES)
@@ -41,6 +46,7 @@ def upload_book(request):
     })
 
 
+@login_required
 def delete_book(request, pk):
     if request.method == 'POST':
         book = Book.objects.get(pk=pk)

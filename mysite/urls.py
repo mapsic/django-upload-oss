@@ -1,9 +1,15 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 from mysite.core import views
+
+
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import views as auth_views
+
+from accounts import views as accounts_views
 
 
 urlpatterns = [
@@ -17,6 +23,11 @@ urlpatterns = [
     path('class/books/upload/', views.UploadBookView.as_view(), name='class_upload_book'),
 
     path('admin/', admin.site.urls),
+
+    path('signup/', accounts_views.signup, name="signup"),
+    path('login/', auth_views.LoginView.as_view(template_name="login.html"), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
+
 ]
 
 if settings.DEBUG:

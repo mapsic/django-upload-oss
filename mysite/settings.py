@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
+    # myapps
     'crispy_forms',
-
     'mysite.core',
+    'django_oss_storage',
+    'widget_tweaks',
+    'accounts',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -111,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -133,6 +136,22 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'mysite/static')
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# For aliyun oss
+DEFAULT_FILE_STORAGE = 'django_oss_storage.backends.OssMediaStorage'
+
+OSS_ACCESS_KEY_ID = 'xxxx'
+OSS_ACCESS_KEY_SECRET = 'xxxx'
+
+OSS_BUCKET_NAME = 'xxxx'
+OSS_ENDPOINT = 'xxxx'
+
+OSS_PREFIX = 'oss://'
+MEDIA_PREFIX = 'media/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL  = 'home'
+LOGOUT_REDIRECT_URL = 'home'

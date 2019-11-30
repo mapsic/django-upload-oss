@@ -9,12 +9,14 @@ Watch it on YouTube: [Django 2.1 File Upload](https://www.youtube.com/playlist?l
 
 Subscribe to my YouTube channel: [youtube.com/VitorFreitas](https://www.youtube.com/VitorFreitas?sub_confirmation=1)
 
+Read the Django storage backends for AliCloud OSS: [django-oss-storage](https://github.com/aliyun/django-oss-storage)
+
 ## Running the Project Locally
 
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/sibtc/django-upload-example.git
+git clone git@github.com:mapsic/django-upload-oss.git
 ```
 
 Install the requirements:
@@ -28,6 +30,17 @@ Apply the migrations:
 ```bash
 python manage.py migrate
 ```
+
+Then update settings.py file for follow keys:
+
+* OSS_ACCESS_KEY_ID
+
+* OSS_ACCESS_KEY_SECRET
+
+* OSS_BUCKET_NAME
+
+* OSS_ENDPOINT
+
 
 Finally, run the development server:
 
